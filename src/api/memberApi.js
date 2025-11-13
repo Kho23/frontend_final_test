@@ -14,3 +14,11 @@ export const register = async (id, userData) => {
   );
   return res.data;
 };
+
+export const partnerReqFileRegister = async (formData) => {
+  const res = await axios.post(
+    "http://localhost:8080/api/member/partnerRequest",
+    formData
+  );
+  return res.data;
+};

@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PartnerRequestComponent from "./components/PartnerRequestComponent";
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  getOne,
+  partnerReqClassRegister,
+  partnerReqFileRegister,
+} from "../../api/memberApi";
+import { getPartnerStatus } from "../../api/partnerApi";
 
 const PartnerRequestPage = () => {
   const [partnerClass, setPartnerClass] = useState({
@@ -21,6 +27,14 @@ const PartnerRequestPage = () => {
     insuranceAgreement: false,
   });
 
+  const [allChecked, setAllChecked] = useState(false);
+
+  const [fileName, setFileName] = useState({
+    resumeFiles: [],
+    certFiles: [],
+    bankFiles: [],
+  });
+
   const navigate = useNavigate();
 
   const [classCheck, setClassCheck] = useState(false);
@@ -30,30 +44,28 @@ const PartnerRequestPage = () => {
   const resumeRef = useRef(null);
   const certRef = useRef(null);
   const bankRef = useRef(null);
-  // const [fileName, setFileName] = useState("");
+
+  const { id } = useParams();
+
+  const [statusCheck, setStatusCheck] = useState("");
 
   useEffect(() => {
-    console.log(
-      "partnerClass",
-      partnerClass,
-      "classCheck",
-      classCheck,
-      "partnerAgree",
-      partnerAgree,
-      "agreeCheck",
-      agreeCheck
-    );
-  }, [partnerClass, partnerAgree]);
+    const status = async () => {
+      const res = await getPartnerStatus(id);
+      setStatusCheck(res);
+    };
+    status();
 
-  useEffect(() => {
     const classChecked = Object.values(partnerClass).some((i) => i === true);
     setClassCheck(classChecked);
 
     const agreeChecked = Object.values(partnerAgree).every((i) => i === true);
     setAgreeCheck(agreeChecked);
-  }, [partnerClass, partnerAgree]);
 
-  // const fileFn = () => {};
+    const fileCheck =
+      fileName.resumeFiles.length > 0 && fileName.bankFiles.length > 0;
+    setFileCheck(fileCheck);
+  }, [partnerClass, partnerAgree, fileName]);
 
   const checkClassHandler = (e) => {
     const { name } = e.target;
@@ -61,10 +73,30 @@ const PartnerRequestPage = () => {
     setPartnerClass({ ...partnerClass, [name]: !selectClass });
   };
 
+  const checkFileHandler = (e) => {
+    const { name, files } = e.target;
+    const fileList = [];
+    for (const file of files) {
+      fileList.push(file.name);
+    }
+    setFileName({ ...fileName, [name]: fileList });
+  };
+
   const checkAgreeHandler = (e) => {
     const { name } = e.target;
     const selectAgreement = partnerAgree[name];
     setPartnerAgree({ ...partnerAgree, [name]: !selectAgreement });
+  };
+
+  const checkAllAgreeHandler = () => {
+    const newValue = !allChecked;
+    setAllChecked(newValue);
+
+    const newValues = Object.keys(partnerAgree).reduce((item, key) => {
+      item[key] = newValue;
+      return item;
+    }, {});
+    setPartnerAgree(newValues);
   };
 
   const cancelHandler = () => {
@@ -74,17 +106,34 @@ const PartnerRequestPage = () => {
     }
   };
 
-  const requestHandler = () => {
-    if (classCheck && agreeCheck) {
-      alert("신청이 완료되었습니다");
+  const requestHandler = async () => {
+    if (classCheck && agreeCheck && fileCheck) {
+      const formData = new FormData();
+      formData.append("resumeFiles", resumeRef.current.files[0]);
+      const certFiles = certRef.current.files;
+      for (let i = 0; i < certFiles.length; i++) {
+        formData.append("certFiles", certFiles[i]);
+      }
+      formData.append("bankFiles", bankRef.current.files[0]);
 
-      navigate("/");
-    } else if (!classCheck && agreeCheck) {
-      console.log("classCheck", classCheck, "partnerClass", partnerClass);
+      const selectedClass = Object.keys(partnerClass).filter(
+        (key) => partnerClass[key] == true
+      );
+      formData.append("partnerClass", selectedClass);
+      formData.append("memberId", id);
+
+      try {
+        const res = await partnerReqFileRegister(formData);
+        alert("신청이 완료되었습니다.");
+        navigate("/");
+      } catch (err) {
+        alert("신청 중 오류가 발생했습니다.");
+      }
+    } else if (fileCheck && !classCheck && agreeCheck) {
       alert("강좌 분야는 최소 한 개 이상 체크해 주세요");
-      // } else if (!fileCheck) {
-      //   alert("이력서와 계좌 사본은 필수입니다");
-    } else if (classCheck && !agreeCheck) {
+    } else if (!fileCheck && classCheck && agreeCheck) {
+      alert("이력서와 계좌 사본은 필수입니다");
+    } else if (classCheck && fileCheck && !agreeCheck) {
       alert("필수 동의 사항을 체크해 주세요");
     } else {
       alert("양식을 다시 확인해 주세요");
@@ -95,11 +144,16 @@ const PartnerRequestPage = () => {
     <PartnerRequestComponent
       checkClassHandler={checkClassHandler}
       checkAgreeHandler={checkAgreeHandler}
+      checkFileHandler={checkFileHandler}
+      checkAllAgreeHandler={checkAllAgreeHandler}
+      allChecked={allChecked}
       resumeRef={resumeRef}
       certRef={certRef}
       bankRef={bankRef}
+      fileName={fileName}
       cancelHandler={cancelHandler}
       requestHandler={requestHandler}
+      statusCheck={statusCheck}
     />
   );
 };
