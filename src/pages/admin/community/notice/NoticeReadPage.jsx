@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { formatter, getOneNotice } from "../../api/noticeApi";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { formatter, getOneNotice } from "../../../../api/noticeApi";
+import { deleteNotice } from "../../../../api/adminApi";
 
 const initState = {
   content: "",
@@ -10,9 +11,12 @@ const initState = {
   viewCount: 0,
 };
 
-const NoticeReadPageComponent = () => {
+const NoticeReadPage = () => {
   const { id } = useParams();
   const [notice, setNotice] = useState(initState);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     const getOne = async () => {
       try {
@@ -25,6 +29,21 @@ const NoticeReadPageComponent = () => {
     };
     getOne();
   }, [id]);
+
+  const deleteHandler = () => {
+    const f = async () => {
+      try {
+        const res = await deleteNotice(id);
+        console.log(res);
+        alert("삭제가 완료되었습니다.");
+        navigate(-1);
+      } catch (error) {
+        console.error("삭제 error", error);
+      }
+    };
+    f();
+  };
+
   return (
     <div className="container mx-auto max-w-5xl p-4 md:p-8">
       {/* 상단 제목 및 아이콘들 */}
@@ -59,12 +78,7 @@ const NoticeReadPageComponent = () => {
         </div>
       </div>
 
-      {/* 내용 영역 (이미지처럼 보이도록 스타일링) */}
-      <div className="min-h-[400px] border border-red-500 bg-red-50 p-8 flex flex-col justify-center items-center text-center text-xl font-semibold text-gray-800 mb-6">
-        {/* content가 HTML이면 dangerouslySetInnerHTML 사용 */}
-        {/* <div dangerouslySetInnerHTML={{ __html: notice.content }}></div> */}
-
-        {/* content가 일반 텍스트라면 */}
+      <div className="min-h-[400px] border border-gray-300 bg-white p-8 flex flex-col justify-center items-center text-center text-xl font-semibold text-gray-800 mb-6">
         <p className="whitespace-pre-wrap">{notice.content}</p>
       </div>
 
@@ -78,16 +92,30 @@ const NoticeReadPageComponent = () => {
         </div> */}
       </div>
 
-      <div className="flex justify-end mt-1">
+      <div className="flex justify-end mt-1 gap-x-4">
         <Link
-          to={"/community/notice"}
+          to={"/admin/notice"}
           className="bg-gray-700 text-white font-bold py-2 px-6 rounded hover:bg-gray-800 transition-colors"
         >
-          목록으로
+          목록
         </Link>
+
+        <Link
+          to={`/admin/notice/update/${id}`}
+          className="bg-gray-700 text-white font-bold py-2 px-6 rounded hover:bg-gray-800 transition-colors"
+        >
+          수정
+        </Link>
+        <button
+          type="button"
+          onClick={deleteHandler}
+          className="bg-gray-700 text-white font-bold py-2 px-6 rounded hover:bg-gray-800 transition-colors"
+        >
+          삭제
+        </button>
       </div>
     </div>
   );
 };
 
-export default NoticeReadPageComponent;
+export default NoticeReadPage;

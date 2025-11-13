@@ -1,24 +1,15 @@
 import { lazy, Suspense } from "react";
-import ProgramPage from "../pages/admin/program/ProgramPage";
 import ProgramListPage from "../pages/program/ProgramListPage";
 import ProgramEditPage from "../pages/admin/program/ProgramEditPage";
-import NoticeListPage from "../pages/notice/NoticeListPage";
 import NoticeEditPage from "../pages/admin/community/notice/NoticeEditPage";
 import NoticeAddPage from "../pages/admin/community/notice/NoticeAddPage";
-import NoticeReadPage from "../pages/notice/NoticeReadPage";
 import FaqListPage from "../pages/faq/FaqListPage";
+import NoticeListPage from "../pages/admin/community/notice/NoticeListPage";
+import NoticeReadPage from "../pages/admin/community/notice/NoticeReadPage";
 
 const Loading = () => <div>Loading...</div>;
 const adminRouter = () => {
   return [
-    // {
-    //   path: "program",
-    //   element: (
-    //     <Suspense fallback={<Loading />}>
-    //       <ProgramPage />
-    //     </Suspense>
-    //   ),
-    // },
     {
       path: "program/:programId",
       element: (

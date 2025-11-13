@@ -1,40 +1,41 @@
 import React, { useEffect, useState } from 'react'
 // 1. useNavigate 임포트
-import { useParams, useNavigate } from 'react-router-dom' 
+import { useParams, useNavigate } from 'react-router-dom'
 import { getOneGallery } from '../../api/galleryApi'
 
 const GalleryReadPageComponent = () => {
-  const {id} = useParams()
+  const { id } = useParams()
   // 2. navigate 함수 초기화
-  const navigate = useNavigate() 
-  const [gallery, setGallery] = useState(null)
+  const navigate = useNavigate()
+  const [gallery, setGallery] = useState(null)
 
-  useEffect(() => {
-    const getOne=async()=>{
-      try {
-        const data = await getOneGallery(id);
-        setGallery(data)
-      } catch (error) {
-          console.error("갤러리 불러오기 실패", error)
-      }
-    };getOne()
-  }, [id])
+  useEffect(() => {
+    const getOne = async () => {
+      try {
+        const data = await getOneGallery(id);
+        setGallery(data)
+        console.log(data)
+      } catch (error) {
+        console.error("갤러리 불러오기 실패", error)
+      }
+    }; getOne()
+  }, [id])
 
   // 3. 목록으로 이동하는 핸들러 함수
   const moveToList = () => {
     // 갤러리 목록 페이지 경로로 이동
-    navigate('/community/gallery') 
+    navigate('/community/gallery')
   }
 
-  if(gallery==null) {
-    return (
-      <div>Loading....</div>
-    )
-  }
-  
-  return (
+  if (gallery == null) {
+    return (
+      <div>Loading....</div>
+    )
+  }
+
+  return (
     <div className="max-w-7xl mx-auto my-10 px-5">
-      
+
       {/* 1. 페이지 타이틀 */}
       <h2 className="text-3xl md:text-4xl font-bold m-0 mb-6">갤러리</h2>
 
@@ -62,16 +63,16 @@ const GalleryReadPageComponent = () => {
         <div className="mb-8">
           {gallery.images && gallery.images.length > 0 && (
             gallery.images.map(image => (
-              <img 
-                key={image.imageUrl} 
-                src={image.imageUrl} 
+              <img
+                key={image.imageUrl}
+                src={image.imageUrl}
                 alt={gallery.title}
-                className="w-full max-w-4xl mx-auto my-4 rounded-lg shadow-md" 
+                className="w-full max-w-4xl mx-auto my-4 rounded-lg shadow-md"
               />
             ))
           )}
         </div>
-        
+
         {/* 4-2. 텍스트 내용 영역 */}
         {gallery.content && (
           <div className="p-6 bg-gray-50 rounded-md min-h-[150px] whitespace-pre-wrap text-lg">
@@ -93,7 +94,7 @@ const GalleryReadPageComponent = () => {
       </div>
 
     </div>
-  )
+  )
 }
 
 export default GalleryReadPageComponent
