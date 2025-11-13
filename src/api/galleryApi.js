@@ -24,3 +24,8 @@ export const getOneGallery=async(id)=>{
     const res = await axios.get(`${API_HOST_URL}/${id}`)
     return res.data
 }
+
+export const increaseViewCount = async (id) => {
+  const res = await axios.post(`${API_HOST_URL}/${id}/view`);
+  return res.data;
+};

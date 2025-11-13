@@ -14,9 +14,10 @@ const Notice = lazy(() => import("../pages/notice/NoticeListPage"));
 const NoticeDetail = lazy(() => import("../pages/notice/NoticeReadPage"));
 const FAQ = lazy(() => import("../pages/faq/FaqListPage"));
 const Program = lazy(() => import("../pages/program/ProgramListPage"));
-const MemberMyPage = lazy(() => import("../pages/member/MemberMyPage"));
+const MemberMyPage = lazy(() => import("../pages/member/mypage/MemberMyPage"));
 const Gallery = lazy(() => import("../pages/gallery/GalleryListPage"));
 const GalleryDetail = lazy(() => import("../pages/gallery/GalleryReadPage"));
+const Schedule = lazy(() => import("../pages/schedule/ScheldulePage"));
 const DailyUse = lazy(() => import("../pages/dailyUse/DailyUsePage"));
 
 const root = createBrowserRouter([
@@ -89,6 +90,10 @@ const root = createBrowserRouter([
         ),
       },
       {
+        path: "/community/schedule",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Schedule />
         path: "/reservation/dailyUse",
         element: (
           <Suspense fallback={<Loading />}>

@@ -102,7 +102,7 @@ export const allMenuItems = [
       {
         id: "",
         title: "일정",
-        path: "",
+        path: "/community/schedule",
       },
       {
         id: "faq",

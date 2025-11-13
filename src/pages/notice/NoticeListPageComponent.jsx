@@ -23,7 +23,9 @@ const NoticeListPageComponent = () => {
   const [submitCategory, setSubmitCategory] = useState(
     () => searchParam.get("category") || 1
   );
+
   const { moveToNoticeDetail } = useCustomMove();
+
   useEffect(() => {
     const getData = async () => {
       try {
