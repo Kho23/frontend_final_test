@@ -49,15 +49,12 @@ const NoticeEditPage = () => {
 
   return (
     <div className="container mx-auto max-w-5xl p-4 md:p-8">
-      {/* 상단 제목 및 아이콘들 */}
       <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-gray-800">
         <h1 className="text-3xl font-bold">공지사항 수정</h1>
       </div>
 
-      {/* 공지 상세 헤더 */}
       <div className="border-t border-b border-gray-300 py-4 mb-6">
         <div className="flex items-center space-x-2 text-gray-700 mb-2">
-          {/* 공지 아이콘 */}
           <span className="px-2 py-1 bg-gray-700 text-white text-xs font-semibold rounded-full">
             제목
           </span>
@@ -71,11 +68,9 @@ const NoticeEditPage = () => {
         </div>
         <div className="flex text-sm text-gray-500 space-x-4">
           <span>작성자 : 관리자</span>
-          {/* {notice.createdAt && <span>등록일자 : {formatter(notice)}</span>} */}
         </div>
       </div>
 
-      {/* 내용 영역 (이미지처럼 보이도록 스타일링) */}
       <textarea
         name="content"
         onChange={changeHandler}

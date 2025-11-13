@@ -6,8 +6,8 @@ import {
   getOne,
   partnerReqClassRegister,
   partnerReqFileRegister,
-} from "../../api/memberApi";
-import { getPartnerStatus } from "../../api/partnerApi";
+} from "../../../api/memberApi";
+import { getPartnerStatus } from "../../../api/partnerApi";
 
 const PartnerRequestPage = () => {
   const [partnerClass, setPartnerClass] = useState({

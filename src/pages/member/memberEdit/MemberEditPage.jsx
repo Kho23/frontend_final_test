@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getOne, register } from "../../api/memberApi";
+import { getOne, register } from "../../../api/memberApi";
 import MemberEditComponent from "./components/MemberEditComponent";
 
 const MemberEditPage = () => {

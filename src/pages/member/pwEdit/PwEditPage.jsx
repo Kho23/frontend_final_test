@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PwEditComponent from "./components/PwEditComponent";
 import { useNavigate, useParams } from "react-router-dom";
-import { getOne, register } from "../../api/memberApi";
+import { getOne, register } from "../../../api/memberApi";
 
 const PwEditPage = () => {
   const { id } = useParams();
@@ -29,7 +29,6 @@ const PwEditPage = () => {
     const { name, value } = e.target;
     const newForm = { ...formCheck, [name]: value };
     setPwCorrect(pwCheckFn(newForm));
-
     setFormCheck(newForm);
     setData({ ...data, [name]: value });
   };
@@ -47,7 +46,6 @@ const PwEditPage = () => {
 
   return (
     <PwEditComponent
-      data={data}
       changeHandler={changeHandler}
       clickHandler={clickHandler}
       pwCorrect={pwCorrect}

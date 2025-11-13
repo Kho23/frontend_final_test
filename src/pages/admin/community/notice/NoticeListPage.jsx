@@ -3,12 +3,12 @@ import {
   formatter,
   getNoticeList,
   increaseViewCount,
-} from "../../api/noticeApi";
+} from "../../../../api/noticeApi";
 
 import { Link, useLocation, useSearchParams } from "react-router-dom";
-import useCustomMove from "../../hooks/useCustomMove";
+import useCustomMove from "../../../../hooks/useCustomMove";
 
-const NoticeListPageComponent = () => {
+const NoticeListPage = () => {
   const [notices, setNotices] = useState([]);
   const [searchParam, setSearchParam] = useSearchParams();
   const [searchingTitle, setSearchingTitle] = useState(
@@ -23,9 +23,7 @@ const NoticeListPageComponent = () => {
   const [submitCategory, setSubmitCategory] = useState(
     () => searchParam.get("category") || 1
   );
-
-  const { moveToNoticeDetail } = useCustomMove();
-
+  const { moveToAdminNoticeDetail } = useCustomMove();
   useEffect(() => {
     const getData = async () => {
       try {
@@ -37,22 +35,6 @@ const NoticeListPageComponent = () => {
     };
     getData();
   }, []);
-  const addViewCount = async (id) => {
-    console.log("클릭되었습니다");
-    setNotices((prev) =>
-      prev.map((notice) =>
-        notice.noticeId === id
-          ? { ...notice, viewCount: notice.viewCount + 1 }
-          : notice
-      )
-    );
-    try {
-      await increaseViewCount(id);
-      moveToNoticeDetail(id);
-    } catch (error) {
-      console.error("조회수 증가 에러 발생 에러= ", error);
-    }
-  };
 
   const handleSearchChange = (e) => {
     console.log("필터변경중", e.target.value);
@@ -152,23 +134,29 @@ const NoticeListPageComponent = () => {
             filteredNotice.map((i) => (
               <tr
                 key={i.noticeId} // key는 map의 최상위 요소에
-                onClick={() => addViewCount(i.noticeId)}
+                onClick={() => moveToAdminNoticeDetail(i.noticeId)}
                 className="border-b hover:bg-gray-50 cursor-pointer"
               >
                 <td className="p-3 text-sm text-gray-600">{i.noticeId}</td>
                 <td className="p-3 text-left">{i.title}</td>
-                <td className="p-3 text-sm text-gray-600">
-                  {/* {format(parseISO(i.createdAt), 'yyyy-MM-dd')} */}
-                  {formatter(i)}
-                </td>
+                <td className="p-3 text-sm text-gray-600">{formatter(i)}</td>
                 <td className="p-3 text-sm text-gray-600">{i.viewCount}</td>
               </tr>
             ))
           )}
         </tbody>
       </table>
+      <div className="flex justify-end mr-4">
+        <Link
+          type="button"
+          className="bg-gray-700 text-white font-bold rounded px-4 py-2 mt-4 hover:bg-gray-800 "
+          to={`add`}
+        >
+          공지사항 추가
+        </Link>
+      </div>
     </div>
   );
 };
 
-export default NoticeListPageComponent;
+export default NoticeListPage;
