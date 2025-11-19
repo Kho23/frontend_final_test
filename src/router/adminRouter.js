@@ -8,7 +8,7 @@ import NoticeListPage from "../pages/admin/community/notice/NoticeListPage";
 import NoticeReadPage from "../pages/admin/community/notice/NoticeReadPage";
 import PartnerRequestPage from "../pages/admin/member/partnerRequest/PartnerRequestPage";
 import PartnerRequestList from "../pages/admin/member/partnerRequest/PartnerRequestList";
-const EditorPage = lazy(() => import("../pages/admin/test/EditorPage"));
+import GuideEditPage from "../pages/admin/guide/GuideEditPage";
 
 const Loading = () => <div>Loading...</div>;
 const adminRouter = () => {
@@ -82,14 +82,14 @@ const adminRouter = () => {
       element: (
         <Suspense fallback={<Loading />}>
           <PartnerRequestPage />
-         </Suspense>
+        </Suspense>
       ),
     },
     {
-      path: "test",
+      path: "guide/:category",
       element: (
         <Suspense fallback={<Loading />}>
-          <EditorPage />
+          <GuideEditPage />
         </Suspense>
       ),
     },

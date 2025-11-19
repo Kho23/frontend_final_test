@@ -39,29 +39,29 @@ export const adminAllMenuItems = [
     subMenus: [
       // 2차 메뉴 (사이드바 내용)
       {
-        id: "",
+        id: "time",
         title: "운영시간", //운영시간수정
-        path: "",
+        path: "/admin/guide/time",
       },
       {
-        id: "",
+        id: "rent",
         title: "상품대여",
-        path: "",
+        path: "/admin/guide/rent",
       },
       {
-        id: "",
+        id: "car",
         title: "차량등록",
-        path: "",
+        path: "/admin/guide/car",
       },
       {
-        id: "",
+        id: "price",
         title: "요금안내",
-        path: "",
+        path: "/admin/guide/price",
       },
       {
-        id: "",
+        id: "refund",
         title: "할인/환불/연기",
-        path: "",
+        path: "/admin/guide/refund",
       },
     ],
   },
