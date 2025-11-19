@@ -4,7 +4,6 @@ import SupportAnsweredComponent from "./SupportAnsweredComponent";
 const SupportComponent = ({
   supportPageHandler,
   supportList,
-  listCheck,
   detailPageHandler,
 }) => {
   return (
@@ -14,7 +13,7 @@ const SupportComponent = ({
           1:1 문의 내역
         </h1>
 
-        {listCheck ? (
+        {supportList.length === 0 ? (
           <div className="bg-white shadow-lg rounded-xl p-10 text-center text-gray-600">
             문의 내역이 없습니다.
           </div>
