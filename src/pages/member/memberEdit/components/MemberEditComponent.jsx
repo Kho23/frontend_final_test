@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MemberEditComponent = ({
   data,
@@ -159,6 +160,20 @@ const MemberEditComponent = ({
       >
         개인 정보 수정 완료
       </button>
+      <Link
+        to={-1}
+        className="
+          mt-10 w-full 
+          bg-blue-600 text-white 
+          py-4 rounded-lg 
+          font-extrabold text-lg
+          hover:bg-blue-700 
+          shadow-lg hover:shadow-xl
+          transition duration-150
+        "
+      >
+        취소
+      </Link>
     </div>
   );
 };

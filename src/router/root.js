@@ -19,7 +19,7 @@ const Gallery = lazy(() => import("../pages/gallery/GalleryListPage"));
 const GalleryDetail = lazy(() => import("../pages/gallery/GalleryReadPage"));
 const Schedule = lazy(() => import("../pages/schedule/ScheldulePage"));
 const DailyUse = lazy(() => import("../pages/dailyUse/DailyUsePage"));
-const Guide = lazy(() => import("../pages/guide/car/CarGuidePage"));
+const Guide = lazy(() => import("../pages/guide/GuidePage"));
 
 const root = createBrowserRouter([
   {
@@ -107,6 +107,14 @@ const root = createBrowserRouter([
         ),
       },
       {
+        path: `guide/:category`,
+        element: (
+          <Suspense fallback={<Loading />}>
+            <Guide />
+          </Suspense>
+        ),
+      },
+      {
         path: "member/:id",
         children: [
           {
@@ -140,14 +148,6 @@ const root = createBrowserRouter([
         ],
       },
     ],
-  },
-  {
-    path: `guide/:guideId`,
-    element: (
-      <Suspense fallback={<Loading />}>
-        <Guide />
-      </Suspense>
-    ),
   },
 ]);
 
