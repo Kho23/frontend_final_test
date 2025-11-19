@@ -1,5 +1,6 @@
 import { FaRegCheckSquare } from "react-icons/fa";
 import { IoWarningOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const PwEditComponent = ({ changeHandler, clickHandler, pwCorrect }) => {
   return (
@@ -75,6 +76,21 @@ const PwEditComponent = ({ changeHandler, clickHandler, pwCorrect }) => {
       >
         비밀번호 변경 완료
       </button>
+
+      <Link
+        to={-1}
+        className="
+          mt-10 w-full 
+          bg-blue-600 text-white 
+          py-4 rounded-lg 
+          font-extrabold text-lg
+          hover:bg-blue-700 
+          shadow-lg hover:shadow-xl
+          transition duration-150
+        "
+      >
+        취소
+      </Link>
     </div>
   );
 };

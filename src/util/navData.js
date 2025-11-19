@@ -8,27 +8,27 @@ export const allMenuItems = [
       {
         id: "time",
         title: "운영시간",
-        path: "/guide/1",
+        path: "/guide/time",
       },
       {
         id: "rent",
         title: "상품대여",
-        path: "/guide/2",
+        path: "/guide/rent",
       },
       {
         id: "car",
         title: "차량등록",
-        path: "/guide/3",
+        path: "/guide/car",
       },
       {
         id: "price",
         title: "요금안내",
-        path: "/guide/4",
+        path: "/guide/price",
       },
       {
         id: "refund",
         title: "할인/환불/연기",
-        path: "/guide/5",
+        path: "/guide/refund",
       },
     ],
   },
