@@ -7,6 +7,8 @@ import FaqListPage from "../pages/faq/FaqListPage";
 import NoticeListPage from "../pages/admin/community/notice/NoticeListPage";
 import NoticeReadPage from "../pages/admin/community/notice/NoticeReadPage";
 
+const EditorPage = lazy(() => import("../pages/admin/test/EditorPage"));
+
 const Loading = () => <div>Loading...</div>;
 const adminRouter = () => {
   return [
@@ -63,6 +65,14 @@ const adminRouter = () => {
       element: (
         <Suspense fallback={<Loading />}>
           <FaqListPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "test",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <EditorPage />
         </Suspense>
       ),
     },
