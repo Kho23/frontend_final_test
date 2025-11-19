@@ -6,29 +6,29 @@ export const allMenuItems = [
     subMenus: [
       // 2차 메뉴 (사이드바 내용)
       {
-        id: "",
+        id: "time",
         title: "운영시간",
-        path: "",
+        path: "/guide/1",
       },
       {
-        id: "",
+        id: "rent",
         title: "상품대여",
-        path: "",
+        path: "/guide/2",
       },
       {
-        id: "",
+        id: "car",
         title: "차량등록",
-        path: "",
+        path: "/guide/3",
       },
       {
-        id: "",
+        id: "price",
         title: "요금안내",
-        path: "",
+        path: "/guide/4",
       },
       {
-        id: "",
+        id: "refund",
         title: "할인/환불/연기",
-        path: "",
+        path: "/guide/5",
       },
     ],
   },
