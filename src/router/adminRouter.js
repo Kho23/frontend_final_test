@@ -11,6 +11,8 @@ import PartnerRequestList from "../pages/admin/member/partnerRequest/PartnerRequ
 import GuideEditPage from "../pages/admin/guide/GuideEditPage";
 import SupportListPage from "../pages/admin/member/support/SupportListPage";
 import SupportDetailPage from "../pages/admin/member/support/SupportDetailPage";
+import GuideViewPage from "../pages/admin/guide/GuideViewPage";
+import GuideAdminPage from "../pages/admin/guide/GuideAdminPage";
 
 const Loading = () => <div>Loading...</div>;
 const adminRouter = () => {
@@ -107,7 +109,7 @@ const adminRouter = () => {
       path: "guide/:category",
       element: (
         <Suspense fallback={<Loading />}>
-          <GuideEditPage />
+          <GuideAdminPage />
         </Suspense>
       ),
     },
