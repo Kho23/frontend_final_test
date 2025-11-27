@@ -149,4 +149,18 @@ export const adminAllMenuItems = [
       },
     ],
   },
+  {
+    id: "stat",
+    title: "통계",
+    path: "/admin/stat", // 1차 메뉴의 기본 경로
+    subMenus: [
+      // 2차 메뉴 (사이드바 내용)
+      {
+        id: "ageGender",
+        title: "연령별 통계",
+        path: "/admin/stat/ageGender",
+      },
+      
+    ],
+  },
 ];

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { fileRegister, register } from '../../../../api/galleryApi';
+import useCustomMove from '../../../../hooks/useCustomMove';
 
 const initState = {
   title: "",
@@ -8,6 +9,7 @@ const initState = {
 const GalleryRegisterPageComponent = () => {
   const [input, setInput] = useState(initState)
   const [images, setImages] = useState(null);
+  const{moveToAdminGallery}=useCustomMove()
 
   const handleFileChange = (e) => {
     setImages(e.target.files)
@@ -35,6 +37,7 @@ const GalleryRegisterPageComponent = () => {
       }
       const galleryData = await register(galleryDto)
       alert("등록이 완료되었습니다.", galleryData)
+      moveToAdminGallery()
     } catch (error) {
       console.log("등록 중 오류 발생 오류내용=", error)
       alert("등록에 실패했습니다.")

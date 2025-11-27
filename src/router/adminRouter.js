@@ -15,7 +15,7 @@ import GalleryListPage from "../pages/admin/community/gallery/GalleryListPage";
 import GalleryReadPage from "../pages/admin/community/gallery/GalleryReadPage";
 import GalleryRegisterPage from "../pages/admin/community/gallery/GalleryRegisterPage";
 import GalleryEditPage from "../pages/admin/community/gallery/GalleryEditPage";
-
+import AgeGenderStatPage from "../pages/admin/statistic/AgeGenderStatPage";
 const Loading = () => <div>Loading...</div>;
 const adminRouter = () => {
 
@@ -145,6 +145,14 @@ const adminRouter = () => {
       element: (
         <Suspense fallback={<Loading />}>
           <GalleryEditPage />
+        </Suspense>
+      ),
+    },
+     {
+      path: "stat/ageGender",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <AgeGenderStatPage />
         </Suspense>
       ),
     },

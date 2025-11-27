@@ -30,6 +30,7 @@ const GalleryReadPageComponent = () => {
   const handleClickDelete = async () => {
     const data = await deleteGallery(id);
     console.log(data)
+    alert("삭제가 완료되었습니다.")
     moveToAdminGallery()
   }
 
