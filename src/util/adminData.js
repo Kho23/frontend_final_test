@@ -6,9 +6,9 @@ export const adminAllMenuItems = [
     subMenus: [
       // 2차 메뉴 (사이드바 내용)
       {
-        id: "",
-        title: "운영시간", //운영시간수정
-        path: "",
+        id: "memberInfo",
+        title: "회원목록",
+        path: "/admin/member/memberInfo",
       },
       {
         id: "",
@@ -133,9 +133,9 @@ export const adminAllMenuItems = [
         path: "/admin/notice",
       },
       {
-        id: "",
+        id: "schedule",
         title: "일정",
-        path: "",
+        path: "/admin/schedule",
       },
       {
         id: "faq",

@@ -11,6 +11,9 @@ import SupportListPage from "../pages/admin/member/support/SupportListPage";
 import SupportDetailPage from "../pages/admin/member/support/SupportDetailPage";
 import GuideAdminPage from "../pages/admin/guide/GuideAdminPage";
 import FaqListPage from "../pages/admin/community/faq/FaqListPage";
+import ScheduleListPage from "../pages/admin/community/schedule/ScheduleListPage";
+import MemberListPage from "../pages/admin/member/memberInfo/MemberListPage";
+
 import GalleryListPage from "../pages/admin/community/gallery/GalleryListPage";
 import GalleryReadPage from "../pages/admin/community/gallery/GalleryReadPage";
 import GalleryRegisterPage from "../pages/admin/community/gallery/GalleryRegisterPage";
@@ -77,6 +80,14 @@ const adminRouter = () => {
       ),
     },
     {
+      path: "schedule",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <ScheduleListPage />
+        </Suspense>
+      ),
+    },
+    {
       path: "member/partnerRequest",
       element: (
         <Suspense fallback={<Loading />}>
@@ -105,6 +116,14 @@ const adminRouter = () => {
       element: (
         <Suspense fallback={<Loading />}>
           <SupportDetailPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "member/memberInfo",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <MemberListPage />
         </Suspense>
       ),
     },
