@@ -77,9 +77,9 @@ export const allMenuItems = [
         path: "",
       },
       {
-        id: "",
+        id: "rental",
         title: "대관신청",
-        path: "",
+        path: "/reservation/rental",
       },
       {
         id: "dailyUse",
