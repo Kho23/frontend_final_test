@@ -26,3 +26,10 @@
   background: #eee !important;
   pointer-events: none;
 }
+.selected-date {
+  background-color: #ffffff !important;
+  color: #2563eb !important;
+  border: 2px solid #2563eb !important;
+  border-radius: 6px;
+  font-weight: 600;
+}
