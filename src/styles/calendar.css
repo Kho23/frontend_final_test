@@ -26,3 +26,9 @@
   background: #eee !important;
   pointer-events: none;
 }
+.selected-date {
+  background-color: #1e3a8a !important; /* 파란색 (blue-900) */
+  color: white !important;
+  border-radius: 6px !important;
+  font-weight: bold;
+}
