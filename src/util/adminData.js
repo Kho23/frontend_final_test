@@ -90,24 +90,19 @@ export const adminAllMenuItems = [
   },
   {
     id: "reservation",
-    title: "예약신청",
-    path: "/reservation", // 1차 메뉴의 기본 경로
+    title: "예약신청내역",
+    path: "/admin/reservation",
     subMenus: [
       // 2차 메뉴 (사이드바 내용)
       {
-        id: "",
-        title: "수강신청",
-        path: "",
+        id: "lesson",
+        title: "강좌 개설 신청내역",
+        path: "/admin/lesson/approve",
       },
       {
-        id: "",
-        title: "대관신청",
-        path: "",
-      },
-      {
-        id: "",
-        title: "일일이용예약",
-        path: "",
+        id: "rental",
+        title: "대관 신청내역",
+        path: "/admin/rental/approve",
       },
     ],
   },
@@ -149,6 +144,11 @@ export const adminAllMenuItems = [
         id: "ageGender",
         title: "연령별 통계",
         path: "/admin/stat/ageGender",
+      },
+      {
+        id: "lesson",
+        title: "강의 종류별 통계",
+        path: "/admin/stat/lesson",
       },
     ],
   },

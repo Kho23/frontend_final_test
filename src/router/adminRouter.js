@@ -19,9 +19,15 @@ import GalleryReadPage from "../pages/admin/community/gallery/GalleryReadPage";
 import GalleryRegisterPage from "../pages/admin/community/gallery/GalleryRegisterPage";
 import GalleryEditPage from "../pages/admin/community/gallery/GalleryEditPage";
 import AgeGenderStatPage from "../pages/admin/statistic/AgeGenderStatPage";
+<<<<<<< Updated upstream
+import LessonApprovalPage from "../pages/admin/reservation/LessonApprovalPage";
+import RentalApprovalPage from "../pages/admin/reservation/RentalApprovalPage";
+import LessonEditPage from "../pages/admin/reservation/LessonEditPage";
+=======
+import LessonStatPage from "../pages/admin/statistic/LessonStatPage";
+>>>>>>> Stashed changes
 const Loading = () => <div>Loading...</div>;
 const adminRouter = () => {
-
   return [
     {
       path: "program/:programId",
@@ -167,11 +173,42 @@ const adminRouter = () => {
         </Suspense>
       ),
     },
-     {
+    {
       path: "stat/ageGender",
       element: (
         <Suspense fallback={<Loading />}>
           <AgeGenderStatPage />
+        </Suspense>
+      ),
+    },
+    {
+<<<<<<< Updated upstream
+      path: "lesson/approve",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <LessonApprovalPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "lesson/approve/:id",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <LessonEditPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "rental/approve",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <RentalApprovalPage />
+=======
+      path: "stat/lesson",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <LessonStatPage />
+>>>>>>> Stashed changes
         </Suspense>
       ),
     },
