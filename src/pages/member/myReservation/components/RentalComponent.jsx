@@ -62,7 +62,7 @@ const RentalComponent = ({ data, facilityName, cancelHandler }) => {
                         시설·장소
                       </span>
                       <span>
-                        {facilityName.find((j) => j.id == i.spaceId).name}
+                        {facilityName.find((j) => j.id == i.spaceId)?.name}
                       </span>
                     </div>
                     <div className="flex justify-between">
