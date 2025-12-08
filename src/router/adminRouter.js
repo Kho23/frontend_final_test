@@ -22,6 +22,8 @@ import AgeGenderStatPage from "../pages/admin/statistic/AgeGenderStatPage";
 import LessonApprovalPage from "../pages/admin/reservation/LessonApprovalPage";
 import RentalApprovalPage from "../pages/admin/reservation/RentalApprovalPage";
 import LessonEditPage from "../pages/admin/reservation/LessonEditPage";
+import LessonStatPage from "../pages/admin/statistic/LessonStatPage";
+
 const Loading = () => <div>Loading...</div>;
 const adminRouter = () => {
   return [
@@ -198,6 +200,14 @@ const adminRouter = () => {
       element: (
         <Suspense fallback={<Loading />}>
           <RentalApprovalPage />
+        </Suspense>
+      ),
+    },
+    {
+      path: "stat/lesson",
+      element: (
+        <Suspense fallback={<Loading />}>
+          <LessonStatPage />
         </Suspense>
       ),
     },
