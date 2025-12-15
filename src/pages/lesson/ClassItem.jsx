@@ -67,7 +67,7 @@ const ClassItem = ({ classes }) => {
     };
 
     return (
-        <div className="group bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm hover:shadow-lg hover:border-gray-300 transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="group bg-white border border-gray-200 rounded-xl p-5 mb-4 shadow-sm hover:shadow-lg hover:border-gray-300 transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-4" onClick={()=>moveToLessonDetail(classes.lessonId)}>
 
             {/* 왼쪽: 강좌 정보 영역 */}
             <div className="flex-1">

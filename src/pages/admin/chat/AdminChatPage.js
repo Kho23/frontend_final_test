@@ -1,95 +1,70 @@
 import React, { useEffect, useState, useRef } from 'react';
 import ChatListPage from './ChatListPage';
-import { getChatRoomList, getHistory } from '../../../api/chatApi'; 
+import { getChatRoomList, getHistory } from '../../../api/chatApi';
 import { getCookie } from '../../../util/cookieUtil';
 import { disconnectSocket, connectSocket, subscribeRoom, publishMessage } from '../../../api/socketApi';
 
 const AdminChatPage = () => {
-  const [chatList, setChatList] = useState([]);
-  const [currentRoomId, setCurrentRoomId] = useState(null);
-  const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
+  const [chatList, setChatList] = useState([]); //채팅방 목록
+  const [currentRoomId, setCurrentRoomId] = useState(null); //현재 선택된 방 번호
+  const [messages, setMessages] = useState([]); //채팅 기록
+  const [input, setInput] = useState(""); //입력 내용
 
-  const stompClient = useRef(null);
-  const currentRoomIdRef = useRef(null); 
-  const token = getCookie("member")?.accessToken;
+  const stompClient = useRef(null); //스톰프 초기설정
+  const currentRoomIdRef = useRef(null); //현재번호 설정
+  const token = getCookie("member")?.accessToken; //쿠키에서 토큰 가져오기 
 
-  // 관리자 ID 상수 (로그상 "admin"으로 확인됨)
-  const ADMIN_ID = "admin";
+  const ADMIN_ID = getCookie("member").memberRole == "ROLE_ADMIN" ? getCookie("member")?.loginId : ""; //관리자 id 가져오기
+  const messagesEndRef = useRef(null); //스크롤 맨 아래로 내리기 
 
   useEffect(() => {
-    currentRoomIdRef.current = currentRoomId;
-  }, [currentRoomId]);
+    currentRoomIdRef.current = currentRoomId; //현재 선택된 방 ID 로 스톰프 설정?
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [currentRoomId,messages]);
 
-  // 1. 초기화 (목록 불러오기 + 소켓 연결)
   useEffect(() => {
-    if (!token) return;
-
+    if (!token) return; //토큰 없으면 즉시 종료 
     const init = async () => {
       try {
-        const listData = await getChatRoomList();
-        
-        // ★ [초기 데이터 정제]
-        // 만약 처음 가져온 목록에 "admin"이라고 되어 있다면,
-        // 어쩔 수 없이 임시로 "User"라고 표시하거나, 
-        // 백엔드에서 user_id 필드가 있다면 그것을 사용해야 합니다.
-        // 여기서는 일단 기존 값을 유지합니다.
-        setChatList(listData);
-        console.log("채팅방 리스트=",listData)
+        const listData = await getChatRoomList(); //채팅방 목록 가져오기 
+        setChatList(listData); //state 에 저장
+        console.log("채팅방 리스트=", listData)
         connectSocket(stompClient, token, () => {
           console.log(`[Init] 총 ${listData.length}개의 방 구독 시작`);
-          listData.forEach(room => {
+          listData.forEach(room => { //모든 채팅방들을 동시에 구독할 수 있도록 설정함
             subscribeRoom(stompClient, room.roomId, (msg) => {
-              handleSocketMessage(msg);
+              handleSocketMessage(msg); // 메세지 오면 소켓 재연결?
             });
           });
         });
-
       } catch (error) {
         console.error("초기화 실패", error);
       }
     };
-
     init();
-
     return () => disconnectSocket(stompClient);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   // 2. 소켓 메시지 수신 처리
   const handleSocketMessage = (newMsg) => {
-    const msgSender = newMsg.sender || newMsg.senderId;
-
+    const msgSender = newMsg.sender || newMsg.senderId; //새 메세지 발송자
     setChatList(prevList => prevList.map(room => {
-      if (room.roomId === newMsg.roomId) {
-        
+      if (room.roomId === newMsg.roomId) { // 
         // 보낸 사람이 admin인지 확인
         const isAdminSender = String(msgSender) === ADMIN_ID;
-
-        // ★ [핵심 수정] 리스트에 표시될 ID(이름) 결정 로직
-        // 1. 관리자가 보냈다? -> 절대로 이름을 바꾸지 마라! (기존 유저 ID 유지: room.senderId)
-        // 2. 유저가 보냈다? -> 그 유저 ID로 업데이트 (msgSender)
-        const displayId = isAdminSender ? room.senderId : msgSender;
-
         return {
           ...room,
           lastMessage: newMsg.message,
           lastSendAt: newMsg.createdAt || new Date().toISOString(),
-          
-          // 여기서 결정된 ID를 넣음 (이제 admin이 메시지 보내도 이름이 안 바뀜)
           senderId: room.senderId,
-          
-          // 빨간점/파란점 스타일 결정 (관리자가 아니면 ROLE_USER)
           senderRole: !isAdminSender ? "ROLE_USER" : "ROLE_ADMIN",
-          
-          unreadCount: (currentRoomIdRef.current !== newMsg.roomId) 
-            ? (room.unreadCount || 0) + 1 
+          unreadCount: (currentRoomIdRef.current !== newMsg.roomId)
+            ? (room.unreadCount || 0) + 1
             : 0
         };
       }
       return room;
     }).sort((a, b) => new Date(b.lastSendAt) - new Date(a.lastSendAt)));
-
     if (currentRoomIdRef.current === newMsg.roomId) {
       setMessages(prev => [...prev, newMsg]);
     }
@@ -103,8 +78,7 @@ const AdminChatPage = () => {
     try {
       const history = await getHistory(roomId);
       setMessages(history);
-      
-      setChatList(prev => prev.map(r => 
+      setChatList(prev => prev.map(r =>
         r.roomId === roomId ? { ...r, unreadCount: 0 } : r
       ));
     } catch (error) {
@@ -125,7 +99,7 @@ const AdminChatPage = () => {
 
   return (
     <div style={{ display: 'flex', height: '80vh', margin: '20px', backgroundColor: '#fff', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.08)', overflow: 'hidden' }}>
-      
+
       {/* 목록 영역 */}
       <div style={{ width: '320px', borderRight: '1px solid #f0f0f0', backgroundColor: '#fcfcfc', display: 'flex', flexDirection: 'column' }}>
         <div style={{ padding: '20px', fontWeight: 'bold', fontSize: '18px', borderBottom: '1px solid #f0f0f0' }}>채팅 목록</div>
@@ -142,7 +116,7 @@ const AdminChatPage = () => {
               <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#4CAF50' }}></div>
               {/* 상단 이름: roomId 대신 유저 ID 표시 */}
               {/* 만약 roomOwnerId가 admin이면 'User'라고 표시, 아니면 ID 표시 */}
-              User {roomOwnerId === ADMIN_ID ? "" : roomOwnerId} 
+              User {roomOwnerId === ADMIN_ID ? "" : roomOwnerId}
             </div>
 
             <div style={{ flex: 1, padding: '20px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', backgroundColor: '#f8f9fa' }}>
@@ -165,9 +139,11 @@ const AdminChatPage = () => {
                     }}>
                       {msg.message}
                     </div>
+                    <div ref={messagesEndRef} />
                   </div>
                 );
               })}
+              
             </div>
 
             <div style={{ padding: '20px', borderTop: '1px solid #f0f0f0', backgroundColor: '#fff' }}>

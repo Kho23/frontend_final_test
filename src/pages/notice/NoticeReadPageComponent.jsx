@@ -25,8 +25,12 @@ const NoticeReadPageComponent = () => {
     };
     getOne();
   }, [id]);
+
   return (
-    <div className="container mx-auto max-w-5xl p-4 md:p-8">
+    <div className="max-w-6xl mx-auto p-6">
+      <nav className="text-sm text-gray-500 mb-6">
+        홈 &gt; 커뮤니티 &gt; 공지사항
+      </nav>
       {/* 상단 제목 및 아이콘들 */}
       <div className="flex justify-between items-center mb-6 pb-4 border-b-2 border-gray-800">
         <h1 className="text-3xl font-bold">공지사항</h1>
