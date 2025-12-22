@@ -197,13 +197,6 @@ const LoginPage = () => {
             >
               네이버 로그인
             </button>
-            <button
-              type="button"
-              onClick={googleLoginHandler}
-              className="px-4 py-2 bg-white text-gray-700 text-sm font-medium rounded shadow-sm border border-gray-300 hover:bg-gray-50"
-            >
-              Google 로그인
-            </button>
           </div>
         </div>
       </div>
