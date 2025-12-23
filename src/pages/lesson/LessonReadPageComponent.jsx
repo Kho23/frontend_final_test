@@ -22,8 +22,11 @@ const LessonReadPageComponent = ({ lesson, isLoggedIn, navigate }) => {
               <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold tracking-wide
                   ${lesson.category === '골프장' ? 'bg-green-100 text-green-700' :
                     lesson.category === '풋살장' ? 'bg-blue-100 text-blue-700' :
+                    lesson.category === '헬스장' ? 'text-orange-600 bg-orange-50' :
+                    lesson.category === '무용실' ? 'text-purple-600 bg-purple-50' :
+                    lesson.category === '수영장' ? 'text-cyan-600 bg-cyan-50' :
                     'bg-cyan-100 text-cyan-700'}`}>
-                {lesson.category === '골프장' ? '골프' : lesson.category === '풋살장' ? '풋살' : lesson.category === '헬스장' ? '헬스' : lesson.category === '무용실' ? '무용' : '해당없음'}
+                {lesson.category === '골프장' ? '골프' : lesson.category === '풋살장' ? '풋살' : lesson.category === '헬스장' ? '헬스' : lesson.category === '무용실' ? '무용' : lesson.category ==='수영장' ? '수영' : '해당없음'}
               </span>
               <span className={`px-2 py-0.5 rounded text-xs font-bold border
                   ${lesson.status === 'ACCEPTED' ? 'border-blue-900 text-blue-900' : 'border-gray-400 text-gray-400'}`}>
@@ -82,7 +85,7 @@ const LessonReadPageComponent = ({ lesson, isLoggedIn, navigate }) => {
           ) : lesson.registered ? (
             <button className="px-8 py-3 rounded-lg font-bold text-white bg-gray-400 cursor-not-allowed h-[48px]" disabled>신청 완료됨</button>
           ) : (
-            <PaymentButton info={lesson} />
+            <PaymentButton info={{...lesson, productType:"LESSON"}} />
           )}
         </div>
       </div>
