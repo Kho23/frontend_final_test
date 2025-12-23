@@ -123,7 +123,7 @@ const AdminChatPage = () => {
               <div style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#4CAF50' }}></div>
               {/* 상단 이름: roomId 대신 유저 ID 표시 */}
               {/* 만약 roomOwnerId가 admin이면 'User'라고 표시, 아니면 ID 표시 */}
-              User {roomOwnerId === ADMIN_ID ? "" : roomOwnerId}
+              {roomOwnerId === ADMIN_ID ? "" : roomOwnerId}
             </div>
 
             <div ref={chatContainerRef} style={{ flex: 1, padding: '20px', overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: '12px', backgroundColor: '#f8f9fa' }}>
@@ -134,7 +134,7 @@ const AdminChatPage = () => {
                 return (
                   <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: isAdmin ? 'flex-end' : 'flex-start' }}>
                     <span style={{ fontSize: '11px', color: '#999', marginBottom: '4px', padding: '0 4px' }}>
-                      {isAdmin ? 'Admin' : `User ${msgSender}`}
+                      {isAdmin ? 'Admin' : `${msgSender}`}
                     </span>
                     <div style={{
                       maxWidth: '70%', padding: '10px 14px',
