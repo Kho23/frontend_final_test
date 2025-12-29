@@ -11,6 +11,7 @@ const PaymentButton = ({ info }) => {
       .then((data) => setBuyer(data))
       .catch(console.error);
   }, []);
+
   const handlePayment = () => {
     console.log("전달받은 결제 정보:", info);
     console.log("결제 금액:", info.price);
@@ -49,9 +50,8 @@ const PaymentButton = ({ info }) => {
           };
 
           try {
-            // ★ 여기가 수정됨: 헤더 설정 없이 body만 보냄
+            // ★ 여기가 수정됨: 헤더 설정 없이 body만 보냄 
             await axios.post("/api/payment/complete", requestData);
-
             alert("수강신청 완료!");
             window.location.reload();
           } catch (error) {
