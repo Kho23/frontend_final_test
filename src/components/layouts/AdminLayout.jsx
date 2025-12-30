@@ -35,7 +35,7 @@ const AdminLayout = () => {
       <AdminHeader />
       <div className={`flex flex-1 flex-col}`}>
         <AdminSidebar />
-        <main className="flex-1 bg-white text-gray-800 p-6">
+        <main className="flex-1 bg-white text-gray-800">
           <Outlet />
         </main>
       </div>
