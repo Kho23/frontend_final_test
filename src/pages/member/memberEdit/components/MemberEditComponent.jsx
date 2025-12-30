@@ -146,6 +146,13 @@ const MemberEditComponent = ({
                 주소 찾기
               </button>
             </div>
+            <input
+              className="w-full border mt-2 border-gray-300 rounded-lg p-3 transition duration-150 focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+              type="text"
+              name="memberDetailAddress"
+              value={data.memberDetailAddress}
+              onChange={changeHandler}
+            />
           </li>
         </ul>
       </form>
