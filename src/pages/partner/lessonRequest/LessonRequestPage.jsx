@@ -93,6 +93,19 @@ const LessonRequestPage = () => {
   }, [form.facilityType, form.startDate, form.endDate, form.days]);
 
   useEffect(() => {
+    if (!form.startDate) return;
+
+    const start = new Date(form.startDate).setHours(0, 0, 0, 0);
+    const today = new Date().setHours(0, 0, 0, 0);
+
+    if (start <= today) {
+      console.log("today", today);
+      alert("시작일은 오늘보다 이후여야 합니다");
+      setForm((i) => ({
+        ...i,
+        startDate: "",
+      }));
+    }
     if (form.startDate && form.endDate && form.endDate < form.startDate) {
       alert("종료일은 시작일보다 이후여야 합니다");
       setForm((i) => ({
