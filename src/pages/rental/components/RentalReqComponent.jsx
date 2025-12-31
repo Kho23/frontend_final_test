@@ -114,7 +114,8 @@ const RentalReqComponent = ({
 
             <p className="text-xs text-gray-500 mt-4 leading-relaxed">
               ※ 신청자 정보는 대관 승인, 취소 안내 등 주요 연락을 위해
-              사용됩니다.
+              사용됩니다. 정확한 정보 입력이 안 되었을 경우 신청이 취소될 수
+              있습니다.
             </p>
           </div>
 
