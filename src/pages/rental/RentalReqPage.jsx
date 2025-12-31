@@ -111,7 +111,12 @@ const RentalReqPage = () => {
       return;
     }
 
+    setScheduleData([]);
+    setSelectDate(null);
+    setSelectTime([]);
+
     setFacility(id);
+
     const f = async () => {
       try {
         const res = await findByFacilityId(id);

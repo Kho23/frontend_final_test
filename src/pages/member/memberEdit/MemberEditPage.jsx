@@ -16,7 +16,6 @@ const MemberEditPage = () => {
   const [formCheck, setFormCheck] = useState(data);
   const [userGender, setUserGender] = useState([false, false]);
   const [userBirth, setUserBirth] = useState("");
-  const [detailAddress, setDetailAddress] = useState("");
   const navigate = useNavigate();
 
   const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}$/;
