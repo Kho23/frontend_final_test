@@ -25,7 +25,9 @@ const MemberEditComponent = ({
               className="w-full border border-gray-300 rounded-lg p-3 bg-gray-50 text-gray-500 transition"
               type="text"
               name="memberRole"
-              value={data.memberRole}
+              value={
+                data.memberRole == "ROLE_USER" ? "일반 회원" : "파트너 회원"
+              }
               disabled
             />
           </li>
