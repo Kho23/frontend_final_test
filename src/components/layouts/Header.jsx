@@ -218,9 +218,6 @@ const Header = () => {
               <br />
               Happy Together
             </p>
-            <div className="mt-auto opacity-30">
-              <div className="w-10 h-10 bg-blue-900 rounded-full blur-xl absolute bottom-10 left-0"></div>
-            </div>
           </div>
 
           {/* 우측 패널 - 배경 제거 */}
