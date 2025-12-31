@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PwEditComponent from "./components/PwEditComponent";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { changePassword, getOne, register } from "../../../api/memberApi";
 import ModalComponent from "../../../components/alertModal/AlertModalComponent";
 
@@ -15,6 +15,9 @@ const PwEditPage = () => {
   const [formCheck, setFormCheck] = useState(data);
   const [pwCorrect, setPwCorrect] = useState(false);
   const navigate = useNavigate();
+
+  const passwordRegex =
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
 
   const pwCheckFn = (formCheck) => {
     const { memberPassword, memberPasswordCheck } = formCheck;
@@ -49,6 +52,16 @@ const PwEditPage = () => {
 
   const clickHandler = async (e) => {
     e.preventDefault();
+
+    if (!passwordRegex.test(formCheck.memberPassword)) {
+      alert("비밀번호는 영문, 숫자, 특수문자 포함 8~16자여야 합니다.");
+      return;
+    }
+
+    if (!passwordRegex.test(formCheck.memberPasswordCheck)) {
+      alert("비밀번호는 영문, 숫자, 특수문자 포함 8~16자여야 합니다.");
+      return;
+    }
 
     setAlertModal({
       open: true,

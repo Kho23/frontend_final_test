@@ -7,6 +7,7 @@ import {
 import { getAvailableTime } from "../../api/commonApi";
 import DailyUsePageComponent from "./components/DailyUsePageComponent";
 import AlertModalComponent from "../../components/alertModal/AlertModalComponent";
+import { useSelector } from "react-redux";
 
 const facilities = [
   { id: 1, name: "수영장", price: 5000 },
@@ -23,6 +24,7 @@ const DailyUsePage = () => {
   const [selectedTime, setSelectedTime] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [price, setPrice] = useState(null);
+  const { isLoggedIn } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (!facility) return;
@@ -140,6 +142,7 @@ const DailyUsePage = () => {
         selectedTime={selectedTime}
         availableTime={availableTime}
         price={price}
+        isLoggedIn={isLoggedIn}
       />
       {modalOpen && (
         <AlertModalComponent
