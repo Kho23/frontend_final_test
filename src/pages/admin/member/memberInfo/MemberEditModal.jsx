@@ -3,6 +3,7 @@ import { modifyMemberInfo } from "../../../../api/adminApi";
 import AlertModalComponent from "../../../../components/alertModal/AlertModalComponent";
 
 const MemberEditModal = ({ member, onClose }) => {
+  // 전달받은 회원 정보를 기반으로 수정 폼 초기값 설정
   const [form, setForm] = useState({
     memberId: member.memberId,
     memberName: member.memberName,
@@ -14,17 +15,23 @@ const MemberEditModal = ({ member, onClose }) => {
     memberBirthDate: member.memberBirthDate?.split("T")[0],
     memberRole: member.memberRole,
   });
+
+  // 수정 완료 알림 모달 열림 여부
   const [modalOpen, setModalOpen] = useState(false);
 
+  // 입력값 변경 시 form 상태 업데이트
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  // 회원 정보 수정 요청 처리
   const handleSubmit = () => {
     try {
       const f = async () => {
+        // 회원 정보 수정 API 호출
         await modifyMemberInfo(form);
+        // 수정 완료 알림 모달 표시
         setModalOpen(true);
       };
       f();
@@ -170,6 +177,7 @@ const MemberEditModal = ({ member, onClose }) => {
           </button>
         </div>
       </div>
+
       {modalOpen && (
         <AlertModalComponent
           message={"회원 정보가 수정되었습니다."}
