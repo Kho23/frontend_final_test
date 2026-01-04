@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import RentalReqComponent from "./components/RentalReqComponent";
-import { useNavigate } from "react-router-dom";
 import { findByFacilityId } from "../../api/dailyUseApi";
 import { getAvailableTime } from "../../api/commonApi";
 import ModalComponent from "../../components/alertModal/AlertModalComponent";
+import { useSelector } from "react-redux";
 
 const RentalReqPage = () => {
   const [alertModal, setAlertModal] = useState({
@@ -24,7 +24,11 @@ const RentalReqPage = () => {
   const [selectDate, setSelectDate] = useState(null);
   const [selectTime, setSelectTime] = useState([]);
   const [formData, setFormData] = useState({});
-  // const [paymentInfo, setPaymentInfo] = useState({});
+  const { isLoggedIn } = useSelector((state) => state.auth);
+
+  // useEffect(() => {
+
+  // }, [selectTime]);
 
   const priceCalc = () => {
     if (!selectTime) return 0;
@@ -107,19 +111,12 @@ const RentalReqPage = () => {
       return;
     }
 
-    if (!timeCheck(selectTime)) {
-      setAlertModal({
-        open: true,
-        type: "alert",
-        message: "연속된 시간만 예약할 수 있습니다",
-        onConfirm: () => {
-          setAlertModal((i) => ({ ...i, open: false }));
-        },
-      });
-      return;
-    }
+    setScheduleData([]);
+    setSelectDate(null);
+    setSelectTime([]);
 
     setFacility(id);
+
     const f = async () => {
       try {
         const res = await findByFacilityId(id);
@@ -138,12 +135,27 @@ const RentalReqPage = () => {
   };
 
   const selectTimeFn = (i) => {
-    setSelectTime((j) => {
-      let final = j.includes(i) ? j.filter((t) => t !== i) : [...j, i];
-      return final.sort(
+    const newSelectTime = selectTime.includes(i)
+      ? selectTime.filter((t) => t !== i)
+      : [...selectTime, i];
+
+    if (!timeCheck(newSelectTime)) {
+      setAlertModal({
+        open: true,
+        type: "alert",
+        message: "연속된 시간만 예약할 수 있습니다",
+        onConfirm: () => {
+          setAlertModal((prev) => ({ ...prev, open: false }));
+        },
+      });
+      return;
+    }
+
+    setSelectTime(
+      newSelectTime.sort(
         (a, b) => parseInt(a.slice(0, 2)) - parseInt(b.slice(0, 2))
-      );
-    });
+      )
+    );
   };
 
   const paymentHandler = () => {
@@ -164,6 +176,7 @@ const RentalReqPage = () => {
   return (
     <div>
       <RentalReqComponent
+        isLoggedIn={isLoggedIn}
         infoHandler={infoHandler}
         facilities={facilities}
         findFacilityFn={findFacilityFn}

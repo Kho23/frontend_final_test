@@ -1,15 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { getCookie } from "../../util/cookieUtil";
 import { getHistory } from "../../api/chatApi";
-import { connectSocket, disconnectSocket, publishMessage } from "../../api/socketApi";
+import {
+  connectSocket,
+  disconnectSocket,
+  publishMessage,
+} from "../../api/socketApi";
+import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
 
 const ChatWidget = () => {
-  const [isOpen, setIsOpen] = useState(false);//모달 오픈여부
+  const [isOpen, setIsOpen] = useState(false); //모달 오픈여부
   const [messages, setMessages] = useState([]); //주고받은 채팅 목록
   const [input, setInput] = useState(""); //채팅방 입력글자
 
   const stompClient = useRef(null); //소켓 연결 객체
-  const messagesEndRef = useRef(null); //스크롤 맨 아래로 내리기 
+  const messagesEndRef = useRef(null); //스크롤 맨 아래로 내리기
 
   // --- [Data] ---
   const cookieData = getCookie("member");
@@ -19,19 +24,24 @@ const ChatWidget = () => {
   // --- [Logic] ---
   useEffect(() => {
     if (memberId && token) {
-      connectSocket(stompClient, token, () => {
-        console.log("소켓 연결 성공");
-        stompClient.current.subscribe(
-          `/sub/chat/room/${memberId}`, //멤버아이디 기준으로 소켓 구독 시작
-          (message) => { //메세지가 오면 JSON 문자열을 객체 형태로 변환하고 기존 채팅목록에 새 메세지를 추가해줌
-            const received = JSON.parse(message.body);
-            setMessages((prev) => [...prev, received]);
-          }
-        );
-      },
+      connectSocket(
+        stompClient,
+        token,
+        () => {
+          console.log("소켓 연결 성공");
+          stompClient.current.subscribe(
+            `/sub/chat/room/${memberId}`, //멤버아이디 기준으로 소켓 구독 시작
+            (message) => {
+              //메세지가 오면 JSON 문자열을 객체 형태로 변환하고 기존 채팅목록에 새 메세지를 추가해줌
+              const received = JSON.parse(message.body);
+              setMessages((prev) => [...prev, received]);
+            }
+          );
+        },
         (err) => {
           console.log("소켓연결 에러: ", err);
-        }); //로그인이 되어있다면 소켓 연결을 시도해라 
+        }
+      ); //로그인이 되어있다면 소켓 연결을 시도해라
       getHistory(memberId).then((data) => setMessages(data)); //채팅 목록을 가져오고 채팅 기록으로 설정해라
     } else {
       // 로그아웃 시 정리
@@ -48,10 +58,11 @@ const ChatWidget = () => {
   }, [messages, isOpen]);
 
   const handleKeyPress = (e) => {
-    if (e.key === "Enter") publishMessage(stompClient, memberId, input,()=> setInput(""));
+    if (e.key === "Enter")
+      publishMessage(stompClient, memberId, input, () => setInput(""));
   };
 
-  // 비로그인 시 모달창 안보이게 
+  // 비로그인 시 모달창 안보이게
   if (!token || !memberId) {
     return null;
   }
@@ -110,7 +121,7 @@ const ChatWidget = () => {
                 color: "#764ba2",
               }}
             >
-              🎧
+              <IoChatbubbleEllipsesOutline />
             </div>
             <div>
               <div style={{ fontWeight: "bold", fontSize: "16px" }}>
@@ -260,7 +271,7 @@ const ChatWidget = () => {
       </div>
 
       {/* 2. 플로팅 버튼 */}
-<button
+      <button
         onClick={() => setIsOpen(!isOpen)}
         style={{
           width: "60px",
@@ -283,7 +294,7 @@ const ChatWidget = () => {
         onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
       >
         {/* 🔥 [수정] 이미지 태그 대신 이모지 텍스트를 바로 사용 */}
-        {isOpen ? "✕" : "🎧"} 
+        {isOpen ? "✕" : <IoChatbubbleEllipsesOutline />}
       </button>
     </div>
   );
