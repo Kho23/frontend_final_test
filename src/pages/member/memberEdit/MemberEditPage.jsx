@@ -32,11 +32,15 @@ const MemberEditPage = () => {
     (async () => {
       const data = await getOne(); // 회원 정보 조회 API 호출
       setData(data); // 해당 회원 정보 상태 저장
-      if (data.memberBirthDate)
+      if (data.memberBirthDate) {
         // 생년월일이 존재하면 yyyy-mm-dd 형식으로 가공하여 저장
         setUserBirth(data.memberBirthDate.substring(0, 10));
-      if (data.memberGender === "남자") setUserGender([true, false]);
-      else setUserGender([false, true]); // 성별 값에 따라 라디오 버튼 상태 설정
+      }
+      if (data.memberGender === "남자") {
+        setUserGender([true, false]);
+      } else {
+        setUserGender([false, true]);
+      } // 성별 값에 따라 라디오 버튼 상태 설정
     })();
     console.log("data", data);
   }, []);
