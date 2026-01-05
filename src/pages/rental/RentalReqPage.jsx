@@ -135,24 +135,27 @@ const RentalReqPage = () => {
   };
 
   const selectTimeFn = (i) => {
-    if (!timeCheck(selectTime)) {
+    const newSelectTime = selectTime.includes(i)
+      ? selectTime.filter((t) => t !== i)
+      : [...selectTime, i];
+
+    if (!timeCheck(newSelectTime)) {
       setAlertModal({
         open: true,
         type: "alert",
         message: "연속된 시간만 예약할 수 있습니다",
         onConfirm: () => {
-          setAlertModal((i) => ({ ...i, open: false }));
+          setAlertModal((prev) => ({ ...prev, open: false }));
         },
       });
       return;
-    } else {
-      setSelectTime((j) => {
-        let final = j.includes(i) ? j.filter((t) => t !== i) : [...j, i];
-        return final.sort(
-          (a, b) => parseInt(a.slice(0, 2)) - parseInt(b.slice(0, 2))
-        );
-      });
     }
+
+    setSelectTime(
+      newSelectTime.sort(
+        (a, b) => parseInt(a.slice(0, 2)) - parseInt(b.slice(0, 2))
+      )
+    );
   };
 
   const paymentHandler = () => {
