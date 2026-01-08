@@ -1,5 +1,6 @@
 import React from "react";
 const API_BASE_URL = process.env.REACT_APP_API_URL || "https://api.jeocenter.shop";
+
 const GalleryReadPageComponent = ({ gallery, moveToList }) => {
   // 데이터 로딩 중 처리
   if (gallery == null) {
