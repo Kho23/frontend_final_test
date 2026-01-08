@@ -11,6 +11,7 @@ const MemberEditModal = ({ member, onClose }) => {
     memberEmail: member.memberEmail,
     memberPhoneNumber: member.memberPhoneNumber,
     memberAddress: member.memberAddress,
+    mebmerDetailAddress: member.memberDetailAddress,
     memberGender: member.memberGender,
     memberBirthDate: member.memberBirthDate?.split("T")[0],
     memberRole: member.memberRole,
@@ -111,8 +112,21 @@ const MemberEditModal = ({ member, onClose }) => {
             <input
               className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
               name="memberAddress"
-              placeholder="상세 주소"
+              placeholder="주소"
               value={form.memberAddress}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="flex flex-col sm:col-span-2">
+            <label className="text-sm font-medium text-gray-600 mb-1">
+              주소
+            </label>
+            <input
+              className="border border-gray-300 p-3 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+              name="memberAddress"
+              placeholder="상세 주소"
+              value={form.memberDetailAddress}
               onChange={handleChange}
             />
           </div>
