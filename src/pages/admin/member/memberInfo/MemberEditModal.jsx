@@ -11,7 +11,7 @@ const MemberEditModal = ({ member, onClose }) => {
     memberEmail: member.memberEmail,
     memberPhoneNumber: member.memberPhoneNumber,
     memberAddress: member.memberAddress,
-    mebmerDetailAddress: member.memberDetailAddress,
+    memberDetailAddress: member.memberDetailAddress,
     memberGender: member.memberGender,
     memberBirthDate: member.memberBirthDate?.split("T")[0],
     memberRole: member.memberRole,
