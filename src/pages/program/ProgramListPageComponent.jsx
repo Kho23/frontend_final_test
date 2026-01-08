@@ -22,7 +22,7 @@ const ProgramListPageComponent = ({ data, programId }) => {
                 <div key={i.fileId} className="max-w-[900px] mx-auto mb-10">
                   <img
                     alt={i.fileName}
-                    src={`http://localhost:8080/${i.filePath.slice(7)}`}
+                    src={`/${i.filePath.slice(7)}`}
                     className="w-full h-auto rounded-lg object-cover"
                   />
                   <p className=" text-center text-sm text-gray-600"></p>

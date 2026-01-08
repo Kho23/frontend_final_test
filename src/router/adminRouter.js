@@ -21,7 +21,7 @@ import RentalApprovalPage from "../pages/admin/reservation/rental/RentalApproval
 import LessonEditPage from "../pages/admin/reservation/lesson/LessonEditPage";
 import RentalEditPage from "../pages/admin/reservation/rental/RentalEditPage";
 import LessonStatPage from "../pages/admin/statistic/LessonStatPage";
-import ChatListPage from "../pages/admin/chat/AdminChatPage";
+// import ChatListPage from "../pages/admin/chat/AdminChatPage";
 import ProgramAdminPage from "../pages/admin/program/ProgramAdminPage";
 
 const Loading = () => <div>Loading...</div>;
@@ -211,14 +211,14 @@ const adminRouter = () => {
         </Suspense>
       ),
     },
-    {
-      path: "chat/list",
-      element: (
-        <Suspense fallback={<Loading />}>
-          <ChatListPage />
-        </Suspense>
-      ),
-    },
+    // {
+    //   path: "chat/list",
+    //   element: (
+    //     <Suspense fallback={<Loading />}>
+    //       <ChatListPage />
+    //     </Suspense>
+    //   ),
+    // },
   ];
 };
 export default adminRouter;

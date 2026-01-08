@@ -2,7 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 import Sidebar from "./Sidebar";
-import ChatWidget from "../chatModal/ChatWidget";
+// import ChatWidget from "../chatModal/ChatWidget";
 import MapWidget from "../mapModal/MapWidget";
 const Layout = () => {
   const location = useLocation();
@@ -20,7 +20,7 @@ const Layout = () => {
         </main>
         <Footer />
         <MapWidget />
-        <ChatWidget />
+        {/* <ChatWidget /> */}
       </div>
     );
   }
@@ -35,7 +35,7 @@ const Layout = () => {
       </div>
       <Footer />
       <MapWidget />
-      <ChatWidget />
+      {/* <ChatWidget /> */}
     </div>
   );
 };

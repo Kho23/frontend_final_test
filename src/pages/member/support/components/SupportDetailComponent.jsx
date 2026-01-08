@@ -52,7 +52,7 @@ const SupportDetailComponent = ({ supportList, toListHandler }) => {
           {supportList.fileName?.length > 0 && (
             <img
               alt={supportList.fileName?.[0]}
-              src={`http://localhost:8080/api/member/support/view/s_${supportList.savedName?.[0]}`}
+              src={`/api/member/support/view/s_${supportList.savedName?.[0]}`}
               className="max-w-md w-full h-auto rounded-lg shadow"
             />
           )}
