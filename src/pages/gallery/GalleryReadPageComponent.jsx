@@ -40,7 +40,7 @@ const GalleryReadPageComponent = ({ gallery, moveToList }) => {
             gallery.images.map((image) => (
               <img
                 key={image.imageUrl}
-                src={API_BASE_URL+image.imageUrl}
+                src={`${API_BASE_URL.trim()}``${image.imageUrl.trim()}`}
                 alt={gallery.title}
                 className="w-full max-w-4xl mx-auto my-4 rounded-lg shadow-md"
               />
