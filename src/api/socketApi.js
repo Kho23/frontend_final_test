@@ -1,7 +1,7 @@
 import SockJS from 'sockjs-client';
 import { Stomp } from '@stomp/stompjs';
 
-const WS_URL = "http://3.26.39.240:8080/ws-chat";
+const WS_URL = "http:s//api.jeocenter.shop/ws-chat";
 
 // 1. 소켓 연결 함수
 export const connectSocket = (clientRef, token, onConnect) => {
