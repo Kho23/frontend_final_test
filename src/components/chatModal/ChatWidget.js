@@ -7,6 +7,7 @@ import {
   publishMessage,
 } from "../../api/socketApi";
 import { IoChatbubbleEllipsesOutline } from "react-icons/io5";
+import { useSelector } from "react-redux";
 
 const ChatWidget = () => {
   const [isOpen, setIsOpen] = useState(false); //모달 오픈여부
@@ -190,7 +191,7 @@ const ChatWidget = () => {
           </div>
 
           {messages.map((msg, index) => {
-            const isMyMessage = msg.sender === "admin";
+            const isMyMessage = msg.sender === memberId;
             return (
               <div
                 key={index}
